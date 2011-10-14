@@ -1,0 +1,45 @@
+<?php var_dump($this->productData); ?>
+<div id="outer-container">
+    <div id="image">
+        <img alt="<?php echo str_replace('"','&rdquo;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
+    </div>
+    <div id="title">
+        <?php echo $this->productData['title']; ?>
+    </div>
+    <div id="price">
+        $<?php echo $this->productData['price']; ?>
+    </div>
+    <div id="shipping">
+        + $<?php echo $this->productData['shipping']; ?> shipping
+    </div>
+    <div id="condition">
+        Condition: <?php echo $this->productData['condition']; ?>
+    </div>
+    <div id="product">
+        Product:
+        <ul>
+            <?php foreach($this->productData['products'] as $product): ?>
+                <li><?php echo $product['quantity']; ?> <?php echo $product['name']; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div id="buy-link">
+        <?php $current = end($this->productData['history']); ?>
+        <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
+            <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
+        <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
+            <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (they're almost gone!)</a>
+        <?php else: ?>
+            Sold out!
+        <?php endif; ?>
+    </div>
+    <div id="comment-container">
+        <?php echo $current['comments']; ?> comment(s)
+    </div>
+    <div id="subtitle">
+        <?php echo $this->productData['subtitle']; ?>
+    </div>
+    <div id="teaser">
+        <?php echo $this->productData['teaser']; ?>
+    </div>
+</div>
