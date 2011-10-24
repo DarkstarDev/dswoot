@@ -18,7 +18,7 @@ extends Zend_Controller_Action
     {
         $wootFetch = Ds_Service_WootFeed_Factory::create();
         $request = $this->getRequest();
-        $site = strtoupper($request->getParam('site'));
+        $site = $request->getParam('site');
         if ($request->getParam('id') == 'current') {
             $productData = $wootFetch->getCurrentProduct($site);
         } else {
@@ -36,7 +36,7 @@ extends Zend_Controller_Action
     {
         $wootFetch = Ds_Service_WootFeed_Factory::create();
         $request = $this->getRequest();
-        $site = strtoupper($request->getParam('site'));
+        $site = $request->getParam('site');
         $productData = $wootFetch->getProductListBySite($site, $request->getParam('page'));
 
         $this->view->productData = $productData;

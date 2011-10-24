@@ -7,7 +7,7 @@
 #
 # Host: omarinvm.dev.sandbox (MySQL 5.1.41-3ubuntu12.10)
 # Database: dswoot
-# Generation Time: 2011-10-14 12:09:04 -0400
+# Generation Time: 2011-10-24 15:54:46 -0400
 # ************************************************************
 
 
@@ -56,7 +56,7 @@ CREATE TABLE `item` (
   `title` varchar(1000) NOT NULL DEFAULT '',
   `subtitle` varchar(1000) NOT NULL DEFAULT '',
   `teaser` varchar(1000) NOT NULL DEFAULT '',
-  `site` enum('woot','shirt','wine','kids','moofi','sellout') NOT NULL DEFAULT 'woot',
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home') NOT NULL DEFAULT 'woot',
   `file_extension` varchar(5) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

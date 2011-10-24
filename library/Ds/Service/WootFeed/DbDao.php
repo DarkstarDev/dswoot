@@ -143,7 +143,7 @@ class Ds_Service_WootFeed_DbDao {
                 ORDER BY h.updated ASC
                 LIMIT ?,?';
 
-        $dto = null;
+        $dtos = null;
 
         $lowerLimit = $this->_getLimitRange($page, $limit);
         if ($records = $this->_db->fetchAll($sql, array($site, $lowerLimit, $limit))) {
