@@ -1,0 +1,122 @@
+.triangle {
+    height: 0;
+    width: 0;
+    border-width:  25px 37px;
+    border-color: #FFF transparent transparent transparent;
+    border-style: solid;
+    position: absolute;
+    left: 115px;
+}
+
+#logo {
+    width: 811px;
+    margin:  0 auto;
+    border-width: 0 0 5px 0;
+    border-color: #E2E2E2;
+    border-style: solid;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+#main-wrapper {
+    background-color: #FFF;
+}
+
+#product-container {
+    margin:  0 auto;
+    width: 811px;
+}
+
+#secondary-wrapper {
+    background-color: rgba(255,255,255,.4);
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    /* For IE 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#66FFFFFF, endColorstr=#66FFFFFF);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#66FFFFFF, endColorstr=#66FFFFFF)";
+    padding:  15px 15px 15px 15px;
+    margin: 17px auto;
+    width: 781px;
+}
+
+body {
+    font-family: "Trebuchet MS",Trebuchet,Calibri,Tahoma,Arial,sans-serif;
+    margin:  0;
+    padding:  0;
+}
+
+#image, #product-info {
+    float: left;
+}
+
+#image {
+    width: 456px;
+}
+
+#product-info {
+    width: 355px;
+}
+
+.clearfix {
+    clear: both;
+    width: 100%;
+    position: relative;
+}
+
+#subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 5px 0;
+}
+
+#teaser {
+    color: #FFF;
+    font-size: 22px;
+    margin-top: 10px;
+}
+
+#title {
+    font-size: 20px;
+    padding: 6px 5px 5px 0px;
+}
+
+#price {
+    font-weight: bold;
+    font-size: 22px;
+    float: left;
+    margin-bottom: 4px;
+}
+
+#shipping {
+    font-size: 11px;
+    margin: 8px 0 0 30px;
+    float: left;
+}
+
+#condition, #product {
+    clear: both;
+    font-size: 11px;
+}
+
+#condition dd, #product dd {
+    margin-left: 90px;
+    margin-bottom: 5px;
+    float: left;
+    width: 250px;
+}
+
+#condition dt, #product dt {
+    width: 80px;
+    float: left;
+    padding:  0 0 5px 0;
+    position: absolute;
+}
+
+#condition dt, #product dt {
+    color: #999;
+    text-transform: uppercase;
+    font-size: 12px;
+}

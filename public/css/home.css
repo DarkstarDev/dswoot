@@ -1,0 +1,15 @@
+body {
+    background-color: #EFEAE6;
+}
+
+#secondary-wrapper {
+    background-color: #EFEAE6;
+    /* For IE 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFEFEAE6, endColorstr=#FFEFEAE6);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFEFEAE6, endColorstr=#FFEFEAE6)";
+}
+
+#logo, #teaser {
+    color: #D35500;
+}

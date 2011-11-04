@@ -9,6 +9,11 @@ class ItemController
 extends Zend_Controller_Action
 {
 
+    public function init()
+    {
+        $this->view->site = $this->getRequest()->getParam('site');
+    }
+
     public function indexAction()
     {
         $this->_forward('view');

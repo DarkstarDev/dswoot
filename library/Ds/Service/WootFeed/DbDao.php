@@ -140,7 +140,7 @@ class Ds_Service_WootFeed_DbDao {
                 INNER JOIN history h
                     ON h.item_id = i.id
                 WHERE i.site = ?
-                ORDER BY h.updated ASC
+                ORDER BY h.updated DESC
                 LIMIT ?,?';
 
         $dtos = null;
@@ -172,7 +172,7 @@ class Ds_Service_WootFeed_DbDao {
                     'condition' => $record['condition'],
                     'thread' => $record['thread'],
                     'purchase_url' => $record['purchase_url'],
-                    'price' => round($record['price'],2),
+                    'price' => number_format($record['price'],2),
                     'shipping' => round($record['shipping'],2),
                     'wootoff' => (bool)$record['wootoff'],
                     'title' => $record['title'],

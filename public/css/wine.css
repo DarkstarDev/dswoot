@@ -1,0 +1,11 @@
+body {
+    background-color: #8A1B26;
+}
+
+#title, #subtitle, #teaser {
+    font-family: Georgia,"Times New Roman",Times,serif;
+}
+
+#logo {
+    color: #8A1B26;
+}

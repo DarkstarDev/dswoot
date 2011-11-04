@@ -3,11 +3,18 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Darkstar's Woot-off Checker v3</title>
-  <?php //echo $this->headLink()->appendStylesheet('/css/style.css') ?>
+  <?php $this->headLink()->appendStylesheet('/css/common.css') ?>
+  <?php $this->headLink()->appendStylesheet('/css/'.$this->site.'.css') ?>
+  <?php echo $this->headLink(); ?>
 </head>
 <body>
-
-    <?php echo $this->layout()->content; ?>
-
+    <div id="main-wrapper">
+        <div id="logo">DSwoot/<?php echo ucfirst($this->site); ?></div>
+        <?php echo $this->layout()->content; ?>
+        <div class="clearfix"></div>
+    </div>
+    <div id="secondary-wrapper">
+        <?php echo $this->placeholder('secondary'); ?>
+    </div>
 </body>
 </html>

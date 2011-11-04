@@ -1,45 +1,60 @@
-<?php var_dump($this->productData); ?>
-<div id="outer-container">
+<?php //var_dump($this->productData); ?>
+<div id="product-container">
     <div id="image">
-        <img alt="<?php echo str_replace('"','&rdquo;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
+        <img alt="<?php echo str_replace('"','&quote;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
     </div>
-    <div id="title">
-        <?php echo $this->productData['title']; ?>
+    <div id="product-info">
+        <div id="title">
+            <?php echo $this->productData['title']; ?>
+        </div>
+        <div id="price">
+            $<?php echo $this->productData['price']; ?>
+        </div>
+        <div id="shipping">
+            + $<?php echo $this->productData['shipping']; ?> shipping
+        </div>
+        <div id="condition">
+            <dl>
+                <dt>Condition:</dt>
+                <dd>
+                    <?php echo $this->productData['condition']; ?>
+                </dd>
+            </dl>
+        </div>
+        <div id="product">
+            <dl>
+                <dt>Product:</dt>
+                    <?php foreach($this->productData['products'] as $product): ?>
+                    <dd>
+                        <?php echo $product['quantity']; ?> <?php echo $product['name']; ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+            <div class="clearfix"></div>
+        </div>
+        <div id="buy-link">
+            <?php $current = end($this->productData['history']); ?>
+            <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
+                <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
+            <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
+                <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (they're almost gone!)</a>
+            <?php else: ?>
+                Sold out!
+            <?php endif; ?>
+        </div>
+        <div id="comment-container">
+            <?php echo $current['comments']; ?> comment(s)
+        </div>
     </div>
-    <div id="price">
-        $<?php echo $this->productData['price']; ?>
-    </div>
-    <div id="shipping">
-        + $<?php echo $this->productData['shipping']; ?> shipping
-    </div>
-    <div id="condition">
-        Condition: <?php echo $this->productData['condition']; ?>
-    </div>
-    <div id="product">
-        Product:
-        <ul>
-            <?php foreach($this->productData['products'] as $product): ?>
-                <li><?php echo $product['quantity']; ?> <?php echo $product['name']; ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-    <div id="buy-link">
-        <?php $current = end($this->productData['history']); ?>
-        <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
-            <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
-        <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
-            <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (they're almost gone!)</a>
-        <?php else: ?>
-            Sold out!
-        <?php endif; ?>
-    </div>
-    <div id="comment-container">
-        <?php echo $current['comments']; ?> comment(s)
-    </div>
-    <div id="subtitle">
-        <?php echo $this->productData['subtitle']; ?>
-    </div>
-    <div id="teaser">
-        <?php echo $this->productData['teaser']; ?>
+    <div class="clearfix">
+        <div class="triangle"></div>
     </div>
 </div>
+<?php $this->placeholder('secondary')->set(
+          '<div id="subtitle">'.
+          str_replace("'",'&apos;',$this->productData["subtitle"]) .
+          '</div>
+        <div id="teaser">' .
+          str_replace("'", '&apos;', $this->productData["teaser"]) .
+          '</div>'
+    );

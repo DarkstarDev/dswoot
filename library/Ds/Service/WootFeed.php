@@ -88,6 +88,7 @@ class Ds_Service_WootFeed {
                 //Unable to fetch data from woot or insert data.
                 $this->_db->rollBack();
                 $this->_dao->unlockApplicationUpdates();
+                throw new Exception($e->getMessage(), 500, $e);
             }
         }
         return $data;
@@ -122,9 +123,9 @@ class Ds_Service_WootFeed {
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $xml = curl_exec($ch);
+
         if (curl_errno($ch)) {
             $error = curl_error($ch);
-            curl_close($ch);
             throw new Exception($error);
         }
         curl_close($ch);
@@ -156,7 +157,6 @@ class Ds_Service_WootFeed {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $standard = curl_exec($ch);
         if (curl_errno($ch)) {
-            curl_close($ch);
             throw new Exception(curl_error($ch));
         }
         curl_close($ch);
@@ -167,7 +167,6 @@ class Ds_Service_WootFeed {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $detail = curl_exec($ch);
         if (curl_errno($ch)) {
-            curl_close($ch);
             throw new Exception(curl_error($ch));
         }
         curl_close($ch);
@@ -189,7 +188,7 @@ class Ds_Service_WootFeed {
         $item['condition'] = (string)$wootNamespace->condition;
         $item['thread'] = (string)$wootNamespace->discussionurl;
         $item['purchase_url'] = (string)$wootNamespace->purchaseurl;
-        $item['price'] = (float)str_replace('$','',$wootNamespace->price);
+        $item['price'] = number_format((float)str_replace('$','',$wootNamespace->price),2);
 
         preg_match('/\$([\d\.]*)/',$wootNamespace->shipping, $matches);
 
@@ -203,6 +202,15 @@ class Ds_Service_WootFeed {
         $history['percent_sold'] = (float)$wootNamespace->soldoutpercentage;
         $images['standard'] = (string)$wootNamespace->standardimage;
         $images['detail'] = (string)$wootNamespace->detailimage;
+
+        //Woot tends to use UTF-8 characters in their filenames.  cURL doesn't like this.
+        $standardUrl = parse_url($images['standard']);
+        $standardUrl['path'] = substr($standardUrl['path'], 1);
+        $images['standard'] = str_replace($standardUrl['path'], urlencode($standardUrl['path']), $images['standard']);
+
+        $detailUrl = parse_url($images['detail']);
+        $detailUrl['path'] = substr($detailUrl['path'], 1);
+        $images['detail'] = str_replace($detailUrl['path'], urlencode($detailUrl['path']), $images['detail']);
 
         $products = array();
 
