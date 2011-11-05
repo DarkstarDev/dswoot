@@ -5,3 +5,7 @@ body {
 #logo {
     color: #4B437D;
 }
+
+a, a:hover, a:visited, a:active {
+    color: #4B437D;
+}

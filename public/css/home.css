@@ -13,3 +13,7 @@ body {
 #logo, #teaser {
     color: #D35500;
 }
+
+a, a:hover, a:visited, a:active {
+    color: #D35500;
+}

@@ -120,3 +120,24 @@ body {
     text-transform: uppercase;
     font-size: 12px;
 }
+
+#permalink {
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+#buy-link {
+    font-size: 30px;
+    margin-top: 15px;
+}
+
+#buy-link, #comment-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 177px;
+    text-align: center;
+}
+
+#comment-container {
+    font-size: 15px;
+}

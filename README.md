@@ -24,9 +24,11 @@ The new version is written using Zend Framework 1.11.11.
 **What works right now?**
 Fetching from Woot!, caching, and fetching said cache.  It will also fetch the images for each item if they're not already on the disk.  It will also implement a lockout to only allow one user to refresh the cache from Woot! to avoid hammering their servers.
 
-**How do I install it?**
+##INSTALLATION##
 1. Set up a MySQL database.
 2. Put your credentials in application.ini.
 3. Run sql/RUNONCE.sql.
-4. Set up a virtualhost or htaccess using public/ as the document root (I'll include a sample .htaccess file for convenience).
-5. Hit your URL and rejoice!  It doesn't look pretty right now but it works.
+4. Set up a virtualhost or htaccess using public/ as the document root (I've include an .htaccess file for convenience).
+5. Change group ownership of public/ to the user your web server runs as (e.g. chown -R :apache public/)
+6. Change permissions of public/images/products/ to 775 (e.g. chown 0775 public/images/products/)
+7. Hit your URL and rejoice!  It doesn't look pretty right now but it works.

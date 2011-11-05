@@ -6,6 +6,7 @@
     <div id="product-info">
         <div id="title">
             <?php echo $this->productData['title']; ?>
+            <a href="<?php echo $this->productData['link'];?>" target="_blank" id="permalink">(permalink)</a>
         </div>
         <div id="price">
             $<?php echo $this->productData['price']; ?>
@@ -43,7 +44,7 @@
             <?php endif; ?>
         </div>
         <div id="comment-container">
-            <?php echo $current['comments']; ?> comment(s)
+            <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment(s)</a>
         </div>
     </div>
     <div class="clearfix">

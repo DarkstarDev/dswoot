@@ -9,3 +9,7 @@ body {
 #logo {
     color: #8A1B26;
 }
+
+a, a:hover, a:visited, a:active {
+    color: #8A1B26;
+}
