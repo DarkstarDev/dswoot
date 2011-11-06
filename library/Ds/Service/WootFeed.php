@@ -101,10 +101,10 @@ class Ds_Service_WootFeed {
         }
 
         //Refresh the current site's stats since we're already here
-        $this->getCurrentProduct($site);
-        $data = $this->_dao->fetchItemByIdAndSite($id, $site);
+        $current = $this->getCurrentProduct($site);
+        $requested = $this->_dao->fetchItemByIdAndSite($id, $site);
 
-        return $data;
+        return array('current' => $current, 'requested' => $requested);
     }
 
     public function getProductListBySite($site, $page)

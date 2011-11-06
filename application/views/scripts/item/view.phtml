@@ -33,16 +33,20 @@
             </dl>
             <div class="clearfix"></div>
         </div>
+
+        <?php $current = end($this->productData['history']); ?>
+        <?php if(empty($this->currentProduct) || $this->productData['id'] == $this->currentProduct['id']): ?>
         <div id="buy-link">
-            <?php $current = end($this->productData['history']); ?>
-            <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
-                <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
-            <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
-                <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (they're almost gone!)</a>
-            <?php else: ?>
-                Sold out!
-            <?php endif; ?>
-        </div>
+                <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
+                    <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
+                <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
+                    <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (They're almost gone!)</a>
+                <?php else: ?>
+                    Sold out!
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
         <div id="comment-container">
             <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment(s)</a>
         </div>

@@ -21,13 +21,16 @@ extends Zend_Controller_Action
 
     public function viewAction()
     {
+        $this->view->currentProduct = array();
         $wootFetch = Ds_Service_WootFeed_Factory::create();
         $request = $this->getRequest();
         $site = $request->getParam('site');
         if ($request->getParam('id') == 'current') {
             $productData = $wootFetch->getCurrentProduct($site);
         } else {
-            $productData = $wootFetch->getProductByIdAndSite($request->getParam('id'), $site);
+            $data = $wootFetch->getProductByIdAndSite($request->getParam('id'), $site);
+            $productData = $data['requested'];
+            $this->view->currentProduct = $data['current'];
         }
 
         if ($this->getRequest()->isXmlHttpRequest()) {
