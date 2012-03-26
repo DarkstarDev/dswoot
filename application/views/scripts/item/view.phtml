@@ -45,7 +45,7 @@
                 <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
                     <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
                 <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
-                    <a href="<?php echo $this->productData['purchase_url']; ?>">I want one! (They're almost gone!)</a>
+                    <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!<br />(They're almost gone!)</a>
                 <?php else: ?>
                     Sold out!
                 <?php endif; ?>
@@ -53,7 +53,7 @@
         <?php endif; ?>
 
         <div id="comment-container">
-            <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment(s)</a>
+            <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment<?php echo (($current['comments'] == 0 || $current['comments'] > 1) ? 's' : '');?></a>
         </div>
     </div>
     <div id="time-updated"></div>

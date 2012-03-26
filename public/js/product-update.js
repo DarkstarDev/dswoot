@@ -27,13 +27,16 @@ socket.on('product', function (data) {
     if (productData.history[0].sold_out) {
         $('#buy-link').text('Sold out!');
     } else {
-        if (parseFloat(productData.history[0].percent_sold) < .9) {
-            $('#buy-link').html('<a href="'+ productData.purchase_url +'">' + "I want one! (They're almost gone!)" +'</a>');
+        if (parseFloat(productData.history[0].percent_sold) >= .9) {
+            $('#buy-link').html('<a href="'+ productData.purchase_url +'">' + "I want one!<br />(They're almost gone!)" +'</a>');
         } else {
             $('#buy-link').html('<a href="'+ productData.purchase_url +'">I want one!</a>');
         }
     }
-    $('#comment-container a').text(productData.history[0].comments + ' comment(s)');
+    $('#comment-container a').text(
+        productData.history[0].comments + ' comment' +
+            ((productData.history[0].comments == 0 || productData.history[0].comments > 1) ? 's' : '')
+    );
     var timeUpdated = new Date(productData.history[0].updated);
     $('#time-updated').text('last updated at ' + timeUpdated.toLocaleTimeString());
 });
