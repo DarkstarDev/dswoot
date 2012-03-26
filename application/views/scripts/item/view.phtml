@@ -1,12 +1,19 @@
 <?php
+    $this->headLink()->appendStylesheet('/css/colorbox.css');
     $this->headScript()->appendScript('var site = "' . $this->site . '"; var socketServer = "' . $this->socketServer . '";');
     $this->headScript()->appendFile('/js/jquery-1.7.2.min.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/jquery.colorbox-min.js', 'text/javascript');
     $this->headScript()->appendFile($this->socketServer . '/socket.io/socket.io.js', 'text/javascript');
     $this->headScript()->appendFile('/js/product-update.js', 'text/javascript');
 ?>
 <div id="product-container">
     <div id="image">
-        <img alt="<?php echo str_replace('"','&quote;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
+        <a href="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>">
+            <img alt="<?php echo str_replace('"','&quote;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
+        </a>
+        <a id="detailImage" href="/images/products/<?php echo $this->productData['id'] ?>_detail<?php echo $this->productData['file_extension']; ?>">
+            <img alt="<?php echo str_replace('"','&quote;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?>_detail<?php echo $this->productData['file_extension']; ?>" />
+        </a>
     </div>
     <div id="product-info">
         <div id="title">

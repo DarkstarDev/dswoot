@@ -1,10 +1,16 @@
 var socket = io.connect(socketServer + '/' + site);
 var productId;
 
+$(function() {
+    $('#image a').colorbox({rel: 'productImages'});
+});
+
 socket.on('product', function (data) {
     var productData = JSON.parse(data);
 
     if (productId != productData.id) {
+        $.colorbox.close();
+        $.colorbox.remove();
         productId = productData.id;
         var permalink = $('#permalink');
         $('#permalink').attr('href', productData.link);
@@ -22,7 +28,9 @@ socket.on('product', function (data) {
         $('#subtitle').text(productData.subtitle);
         $('#teaser').text(productData.teaser);
         $('#image img').attr('alt', productData.title.replace('"','\"'));
-        $('#image img').attr('src', '/images/products/' + productId + productData.file_extension);
+        $($('#image img')[0]).attr('src', '/images/products/' + productId + productData.file_extension);
+        $($('#image img')[1]).attr('src', '/images/products/' + productId + '_detail' + productData.file_extension);
+        $('#image a').colorbox({rel: 'productImages'});
     }
     if (productData.history[0].sold_out) {
         $('#buy-link').text('Sold out!');

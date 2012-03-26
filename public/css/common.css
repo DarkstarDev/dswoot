@@ -149,3 +149,7 @@ body {
     right: 0;
     margin: 0 40px 10px 0;
 }
+
+#detailImage {
+    display: none;
+}
