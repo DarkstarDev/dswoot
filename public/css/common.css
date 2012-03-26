@@ -25,6 +25,7 @@
 #product-container {
     margin:  0 auto;
     width: 811px;
+    position: relative;
 }
 
 #secondary-wrapper {
@@ -140,4 +141,11 @@ body {
 
 #comment-container {
     font-size: 15px;
+}
+
+#time-updated {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0 40px 10px 0;
 }

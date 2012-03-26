@@ -19,10 +19,8 @@ The new version is written using Zend Framework 1.11.11.
     It can fetch from cache, check for staleness and fetch from woot if the cache is stale.  It can fetch from woot, shirt.woot, wine.woot, sellout.woot, kids.woot, and moofi.  It can also show you a historical list of items sold on woot and their progress over time.
 8. **What about the Android and iOS apps you promised?**
     You're not paying attention, are you?
-
-
-**What works right now?**
-Fetching from Woot!, caching, and fetching said cache.  It will also fetch the images for each item if they're not already on the disk.  It will also implement a lockout to only allow one user to refresh the cache from Woot! to avoid hammering their servers.
+9. **What works right now?**
+    Fetching from Woot!, caching, and fetching said cache.  It will also fetch the images for each item if they're not already on the disk.  It will also implement a lockout to only allow one user to refresh the cache from Woot! to avoid hammering their servers.
 
 ##INSTALLATION##
 1. Set up a MySQL database.
@@ -31,4 +29,7 @@ Fetching from Woot!, caching, and fetching said cache.  It will also fetch the i
 4. Set up a virtualhost or htaccess using public/ as the document root (I've include an .htaccess file for convenience).
 5. Change group ownership of public/ to the user your web server runs as (e.g. chown -R :apache public/)
 6. Change permissions of public/images/products/ to 775 (e.g. chown 0775 public/images/products/)
-7. Hit your URL and rejoice!  It doesn't look pretty right now but it works.
+7. Configure and compile Node.js. You may need to install some dependencies (e.g. cd externals/node/; ./configure; make; sudo make install)
+8. Install socket.io (e.g. npm install socket.io)
+9. Run socketserver.js as a daemon  (e.g. nohup node socketserver.js)
+10. Hit your URL and rejoice!  It doesn't look pretty right now but it works.

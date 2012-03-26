@@ -1,4 +1,9 @@
-<?php //var_dump($this->productData); ?>
+<?php
+    $this->headScript()->appendScript('var site = "' . $this->site . '"; var socketServer = "' . $this->socketServer . '";');
+    $this->headScript()->appendFile('/js/jquery-1.7.2.min.js', 'text/javascript');
+    $this->headScript()->appendFile($this->socketServer . '/socket.io/socket.io.js', 'text/javascript');
+    $this->headScript()->appendFile('/js/product-update.js', 'text/javascript');
+?>
 <div id="product-container">
     <div id="image">
         <img alt="<?php echo str_replace('"','&quote;',$this->productData['title']); ?>" src="/images/products/<?php echo $this->productData['id'] ?><?php echo $this->productData['file_extension']; ?>" />
@@ -51,6 +56,7 @@
             <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment(s)</a>
         </div>
     </div>
+    <div id="time-updated"></div>
     <div class="clearfix">
         <div class="triangle"></div>
     </div>

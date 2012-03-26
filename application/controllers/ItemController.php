@@ -1,6 +1,6 @@
 <?php
 /**
- * Class description
+ * Item Controller
  *
  * @author Orlando Marin
  */
@@ -38,6 +38,7 @@ extends Zend_Controller_Action
         }
 
         $this->view->productData = $productData;
+        $this->view->socketServer = Zend_Registry::get('config')->socketServer->url;
     }
 
     public function listAction()

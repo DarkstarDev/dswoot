@@ -1,6 +1,6 @@
 <?php
 /**
- * Class description
+ * This class fetches, parses, and saves Woot! RSS data
  *
  * @author Orlando Marin
  */
@@ -62,8 +62,8 @@ class Ds_Service_WootFeed {
 
         $data = $item;
 
-        if (!$this->_dao->getLockStatus()) {
-            $this->_dao->lockApplicationUpdates();
+        if (!$this->_dao->getLockStatus($site)) {
+            $this->_dao->lockApplicationUpdates($site);
             try {
                 $this->_db->beginTransaction();
                 $feed = $this->_fetchWootRss($wootSite);
@@ -79,7 +79,7 @@ class Ds_Service_WootFeed {
                     $this->_dao->insertProducts($feed['item']['id'], $feed['products']);
                 }
                 $this->_dao->insertItemHistory($feed['item']['id'], $feed['history']);
-                $this->_dao->unlockApplicationUpdates();
+                $this->_dao->unlockApplicationUpdates($site);
                 $this->_db->commit();
                 $data = $feed['item'];
                 $data['history'][0] = $feed['history'];
@@ -87,7 +87,7 @@ class Ds_Service_WootFeed {
             } catch (Exception $e) {
                 //Unable to fetch data from woot or insert data.
                 $this->_db->rollBack();
-                $this->_dao->unlockApplicationUpdates();
+                $this->_dao->unlockApplicationUpdates($site);
                 throw new Exception($e->getMessage(), 500, $e);
             }
         }
@@ -200,6 +200,7 @@ class Ds_Service_WootFeed {
         $history['comments'] = (int)$wootNamespace->comments;
         $history['sold_out'] = (strtolower((string)$wootNamespace->soldout) == 'true') ? true : false;
         $history['percent_sold'] = (float)$wootNamespace->soldoutpercentage;
+        $history['updated'] = date('c');
         $images['standard'] = (string)$wootNamespace->standardimage;
         $images['detail'] = (string)$wootNamespace->detailimage;
 

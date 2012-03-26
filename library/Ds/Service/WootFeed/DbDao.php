@@ -1,6 +1,6 @@
 <?php
 /**
- * Class description
+ * WootFeed Data Access Object
  *
  * @author Orlando Marin
  */
@@ -190,7 +190,7 @@ class Ds_Service_WootFeed_DbDao {
                     'comments' => $record['comments'],
                     'sold_out' => (bool)$record['sold_out'],
                     'percent_sold' => round($record['percent_sold'],2),
-                    'updated' => $record['updated']
+                    'updated' => date('c', strtotime($record['updated']))
                 ));
                 $historyMap[] = $record['history_id'];
             }
@@ -228,24 +228,25 @@ class Ds_Service_WootFeed_DbDao {
 
     public function insertItemHistory($itemId, array $row)
     {
+        unset($row['updated']);
         $row['id'] = sha1(uniqid());
         $this->_db->insert('history', array_merge(array('item_id' => $itemId), $row));
     }
 
-    public function getLockStatus()
+    public function getLockStatus($site)
     {
-        $sql = 'SELECT `locked` FROM `status`';
-        $lock = $this->_db->fetchOne($sql);
+        $sql = 'SELECT `locked` FROM `status` WHERE site = ?';
+        $lock = $this->_db->fetchOne($sql, array($site));
         return $lock;
     }
 
-    public function lockApplicationUpdates()
+    public function lockApplicationUpdates($site)
     {
-        $this->_db->update('status', array('locked' => 1));
+        $this->_db->update('status', array('locked' => 1), array('site = ?' => $site));
     }
 
-    public function unlockApplicationUpdates()
+    public function unlockApplicationUpdates($site)
     {
-        $this->_db->update('status', array('locked' => 0));
+        $this->_db->update('status', array('locked' => 0), array('site = ?' => $site));
     }
 }

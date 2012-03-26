@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: omarinvm.dev.sandbox (MySQL 5.1.41-3ubuntu12.10)
+# Host: nataku (MySQL 5.1.61-0ubuntu0.11.04.1)
 # Database: dswoot
-# Generation Time: 2011-10-24 15:54:46 -0400
+# Generation Time: 2012-03-26 03:58:58 +0000
 # ************************************************************
 
 
@@ -85,15 +85,23 @@ CREATE TABLE `product` (
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE `status` (
-  `locked` tinyint(1) unsigned NOT NULL
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home') NOT NULL,
+  `locked` tinyint(1) unsigned NOT NULL,
+  PRIMARY KEY (`site`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `status` WRITE;
 /*!40000 ALTER TABLE `status` DISABLE KEYS */;
 
-INSERT INTO `status` (`locked`)
+INSERT INTO `status` (`site`, `locked`)
 VALUES
-	(0);
+	('woot',0),
+	('shirt',0),
+	('wine',0),
+	('kids',0),
+	('moofi',0),
+	('sellout',0),
+	('home',0);
 
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
