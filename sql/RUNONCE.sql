@@ -7,7 +7,7 @@
 #
 # Host: nataku (MySQL 5.1.61-0ubuntu0.11.04.1)
 # Database: dswoot
-# Generation Time: 2012-03-26 03:58:58 +0000
+# Generation Time: 2012-04-06 19:26:10 +0000
 # ************************************************************
 
 
@@ -33,7 +33,7 @@ CREATE TABLE `history` (
   `percent_sold` float unsigned NOT NULL,
   `updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`item_id`,`id`),
-  KEY `id` (`id`),
+  KEY `item_id` (`item_id`,`updated`),
   CONSTRAINT `history_item_id` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -58,7 +58,8 @@ CREATE TABLE `item` (
   `teaser` varchar(1000) NOT NULL DEFAULT '',
   `site` enum('woot','shirt','wine','kids','moofi','sellout','home') NOT NULL DEFAULT 'woot',
   `file_extension` varchar(5) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`,`site`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

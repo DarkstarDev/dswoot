@@ -3,7 +3,7 @@ So I've finally gotten around to writing Darkstar's Woot!-off Checker v3.
 The new version is written using Zend Framework 1.11.11.
 
 ##FAQ##
-1. **Does it have any of the features I promised?**
+1. **Does it have any of the features you promised?**
     No.
 2. **But you said it would have a flash version, an HTML5 version, and a basic version!**
     I lied, I guess.  It fetches the current woot item and saves it to a database though.  That's a little more useful than before.
@@ -21,15 +21,8 @@ The new version is written using Zend Framework 1.11.11.
     You're not paying attention, are you?
 9. **What works right now?**
     Fetching from Woot!, caching, and fetching said cache.  It will also fetch the images for each item if they're not already on the disk.  It will also implement a lockout to only allow one user to refresh the cache from Woot! to avoid hammering their servers.
+10. **Did anybody actually ask you ANY of these questions?**
+    Nope.
 
 ##INSTALLATION##
-1. Set up a MySQL database.
-2. Put your credentials in application.ini.
-3. Run sql/RUNONCE.sql.
-4. Set up a virtualhost or htaccess using public/ as the document root (I've include an .htaccess file for convenience).
-5. Change group ownership of public/ to the user your web server runs as (e.g. chown -R :apache public/)
-6. Change permissions of public/images/products/ to 775 (e.g. chown 0775 public/images/products/)
-7. Configure and compile Node.js. You may need to install some dependencies (e.g. cd externals/node/; ./configure; make; sudo make install)
-8. Install socket.io (e.g. npm install socket.io)
-9. Run socketserver.js as a daemon  (e.g. nohup node socketserver.js)
-10. Hit your URL and rejoice!  It doesn't look pretty right now but it works.
+For installation instructions, see https://github.com/DarkstarDev/dswoot/wiki/Installation-Instructions

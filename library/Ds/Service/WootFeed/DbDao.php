@@ -41,20 +41,10 @@ class Ds_Service_WootFeed_DbDao {
                 INNER JOIN product p
                     ON p.item_id = i.id
                 INNER JOIN history h
-                    ON h.item_id = i.id AND h.updated = (
-                        SELECT
-                            updated
-                        FROM
-                            history
-
-                        JOIN item
-                            ON history.item_id = item.id
-                        WHERE item.site = i.site
-                        ORDER BY updated DESC
-                        LIMIT 0,1
-                    )
+                    ON h.item_id = i.id
                 WHERE i.site = ?
-                ORDER BY h.updated DESC';
+                ORDER BY h.updated DESC
+                LIMIT 0,1';
 
         $dto = null;
 
@@ -112,7 +102,7 @@ class Ds_Service_WootFeed_DbDao {
 
     public function fetchItemListBySite($site, $page=1, $limit=10)
     {
-        $sql = 'SELECT
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS
                     i.id,
                     i.link,
                     i.condition,
@@ -125,36 +115,33 @@ class Ds_Service_WootFeed_DbDao {
                     i.subtitle,
                     i.teaser,
                     i.file_extension,
-                    p.id AS product_id,
-                    p.name,
-                    p.quantity,
-                    h.id AS history_id,
-                    h.comments,
-                    h.sold_out,
-                    h.percent_sold,
-                    h.updated
+                    max(h.comments) AS comments,
+                    min(h.updated) AS updated
                 FROM
                     item i
-                INNER JOIN product p
-                    ON p.item_id = i.id
                 INNER JOIN history h
                     ON h.item_id = i.id
                 WHERE i.site = ?
+                GROUP BY id
                 ORDER BY h.updated DESC
                 LIMIT ?,?';
 
-        $dtos = null;
+        $dtos = array();
 
         $lowerLimit = $this->_getLimitRange($page, $limit);
         if ($records = $this->_db->fetchAll($sql, array($site, $lowerLimit, $limit))) {
-            $dtos = $this->_recordReduce($records);
+            $dtos = $this->_listRecordReduce($records);
         }
 
-        return $dtos;
+        $sql = 'SELECT FOUND_ROWS() as count';
+        $record = $this->_db->fetchRow($sql);
+
+        return array('count' => $record['count'], 'range' => array($lowerLimit+1, $limit), 'items' => $dtos);
     }
 
     protected function _getLimitRange($page, $itemsPerPage)
     {
+        $page = max($page, 1);
         return ($page-1) * $itemsPerPage;
     }
 
@@ -178,14 +165,15 @@ class Ds_Service_WootFeed_DbDao {
                     'title' => $record['title'],
                     'subtitle' => $record['subtitle'],
                     'teaser' => $record['teaser'],
-                    'file_extension' => $record['file_extension'],
-                    'history' => array(),
-                    'products' => array()
+                    'file_extension' => $record['file_extension']
                 );
                 $idMap[] = $record['id'];
             }
 
-            if (!in_array($record['history_id'], $historyMap)) {
+            if (array_key_exists('history_id', $record) && !in_array($record['history_id'], $historyMap)) {
+                if (!array_key_exists('history', $dto[$record['id']])) {
+                    $dto[$record['id']]['history'] = array();
+                }
                 array_push($dto[$record['id']]['history'],array(
                     'comments' => $record['comments'],
                     'sold_out' => (bool)$record['sold_out'],
@@ -195,12 +183,45 @@ class Ds_Service_WootFeed_DbDao {
                 $historyMap[] = $record['history_id'];
             }
 
-            if (!in_array($record['product_id'], $productMap)) {
+            if (array_key_exists('product_id', $record) && !in_array($record['product_id'], $productMap)) {
+                if (!array_key_exists('products', $dto[$record['id']])) {
+                    $dto[$record['id']]['products'] = array();
+                }
                 array_push($dto[$record['id']]['products'],array(
                     'name' => $record['name'],
                     'quantity' => $record['quantity']
                 ));
                 $productMap[] = $record['product_id'];
+            }
+        }
+
+        return $dto;
+    }
+
+    protected function _listRecordReduce($records)
+    {
+        $dto = array();
+        $idMap = array();
+
+        foreach ($records as $record) {
+            if (!in_array($record['id'], $idMap)) {
+                $dto[$record['id']] = array(
+                    'id' => $record['id'],
+                    'link' => $record['link'],
+                    'condition' => $record['condition'],
+                    'thread' => $record['thread'],
+                    'purchase_url' => $record['purchase_url'],
+                    'price' => number_format($record['price'],2),
+                    'shipping' => round($record['shipping'],2),
+                    'wootoff' => (bool)$record['wootoff'],
+                    'title' => $record['title'],
+                    'subtitle' => $record['subtitle'],
+                    'teaser' => $record['teaser'],
+                    'file_extension' => $record['file_extension'],
+                    'comments' => $record['comments'],
+                    'updated' => strtotime($record['updated'])
+                );
+                $idMap[] = $record['id'];
             }
         }
 

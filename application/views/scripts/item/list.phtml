@@ -1,1 +1,45 @@
-<?php var_dump($this->productData); ?>
+<?php if (!count($this->productData)): ?>
+    <div class="rounded-wrapper">
+        No items found
+    </div>
+<?php else: ?>
+<?php foreach ($this->productData as $product): ?>
+    <div class="rounded-wrapper">
+        <div class="thumbnail-container">
+            <a href="/<?php echo $this->site ?>/view/<?php echo $product['id']?>">
+                <img src="/images/products/<?php echo $product['id']?>_thumbnail<?php echo $product['file_extension']?>" alt="<?php echo $product['title']?>" />
+            </a>
+        </div>
+        <div class="date-container">
+            <span class="month-container"><?php echo date('M',$product['updated']);?></span>
+            <span class="day-container"><?php echo date('j', $product['updated']);?></span>
+            <span class="year-container"><?php echo date('Y', $product['updated']);?></span>
+        </div>
+        <div class="info-container">
+            <span class="title">
+                <a href="/<?php echo $this->site ?>/view/<?php echo $product['id']?>"><?php echo $product['title'];?></a>
+            </span>
+            <span class="comments">
+                <a href="<?php echo $product['thread'];?>" target="_blank">
+                    <?php echo $product['comments'];?> comment<?php echo ($product['comments'] == 0 || $product['comments'] > 1) ? 's' : '' ;?>
+                </a>
+            </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+<?php endforeach; ?>
+<div id="pagination">
+    <div id="pagination-navigation">
+        <?php if ($this->page > 1): ?>
+        <div id="previous-link"><a href="/<?php echo $this->site; ?>/list/<?php echo $this->page-1; ?>">&laquo; Newer</a></div>
+        <?php endif;
+        if ($this->page + 1 <= ceil($this->itemCount/$this->range[1])): ?>
+        <div id="next-link"><a href="/<?php echo $this->site; ?>/list/<?php echo $this->page+1; ?>">Older &raquo;</a></div>
+        <?php endif; ?>
+    </div>
+    <div class="clearfix"></div>
+    <div id="pagination-count">
+        Showing <?php echo $this->range[0];?> to <?php echo min($this->itemCount, $this->range[1]-1 + $this->range[0]); ?> of <?php echo $this->itemCount; ?>
+    </div>
+</div>
+<?php endif; ?>

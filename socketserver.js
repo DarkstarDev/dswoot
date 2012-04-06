@@ -1,9 +1,35 @@
 /**
- * @var siteUrl string
- * @example subdomain.domain.tld
+ * Set this to the FQDN your site lives at
+ * @var siteHost string
  */
-var siteUrl = "not.configured.tld";
-var io = require('socket.io').listen(8080),
+var siteHost = "not.configured.tld";
+
+/**
+ * The port your site listens on
+ * @var sitePort int
+ */
+var sitePort = 80;
+
+/**
+ * The path to the woot-checker if it resides in a subdirectory
+ * of the site.  Leave empty if this does not apply.
+ * @var sitePath string
+ */
+var sitePath = '';
+
+/**
+ * The port socket.io will listen on.  If you change this you must
+ * also change it in application/configs/application.ini.
+ * @var socketIOPort int
+ */
+var socketIOPort = 8080;
+
+
+/**
+ * You shouldn't have to modify anything below this line.
+ * If you do, you're on your own.
+ */
+var io = require('socket.io').listen(socketIOPort),
     http = require('http');
 
 //All connections to be used
@@ -59,45 +85,45 @@ var XMLHttpRequestHeader = {
 //Request options
 var options = {
     woot: {
-        host: siteUrl,
-        port: 80,
-        path: '/woot',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/woot',
         headers: XMLHttpRequestHeader
     },
     kids: {
-        host: siteUrl,
-        port: 80,
-        path: '/kids',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/kids',
         headers: XMLHttpRequestHeader
     },
     home: {
-        host: siteUrl,
-        port: 80,
-        path: '/home',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/home',
         headers: XMLHttpRequestHeader
     },
     shirt: {
-        host: siteUrl,
-        port: 80,
-        path: '/shirt',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/shirt',
         headers: XMLHttpRequestHeader
     },
     sellout: {
-        host: siteUrl,
-        port: 80,
-        path: '/sellout',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/sellout',
         headers: XMLHttpRequestHeader
     },
     wine: {
-        host: siteUrl,
-        port: 80,
-        path: '/wine',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/wine',
         headers: XMLHttpRequestHeader
     },
     moofi: {
-        host: siteUrl,
-        port: 80,
-        path: '/moofi',
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/moofi',
         headers: XMLHttpRequestHeader
     }
 };

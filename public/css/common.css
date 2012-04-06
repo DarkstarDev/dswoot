@@ -28,7 +28,7 @@
     position: relative;
 }
 
-#secondary-wrapper {
+.rounded-wrapper {
     background-color: rgba(255,255,255,.4);
     border-radius: 5px;
     -moz-border-radius: 5px;
@@ -152,4 +152,92 @@ body {
 
 #detailImage {
     display: none;
+}
+
+#list-wrapper {
+    width: 811px;
+    margin: 0 auto;
+}
+
+.thumbnail-container {
+    width: 128px;
+    margin-right: 10px;
+    float: left;
+}
+
+.date-container {
+    width: 75px;
+    float: left;
+    margin: 10px 15px 0 0;
+}
+
+.date-container span {
+    display: block;
+    clear: both;
+    margin: 0 auto;
+    text-align: center;
+}
+
+span.month-container, span.year-container {
+    font-size: 15px;
+}
+
+span.day-container {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.info-container {
+    float: left;
+    padding: 10px 0;
+    width: 395px;
+}
+
+.info-container span {
+    display: block;
+    clear: both;
+}
+
+#list-wrapper .rounded-wrapper {
+    width: 625px;
+    background-color: rgba(255,255,255,.8);
+    /* For IE 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#CCFFFFFF, endColorstr=#CCFFFFFF);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#CCFFFFFF, endColorstr=#CCFFFFFF)";
+}
+
+.info-container .title a {
+    color: #000000;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.info-container .comments a {
+    color: #000000;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+#pagination a {
+    color: #000000;
+}
+
+#previous-link {
+    display: inline-block;
+}
+
+#next-link {
+    display: inline-block;
+    float:right;
+}
+
+#pagination-count {
+    text-align: center;
+}
+
+#title {
+    font-size: 22px;
+    margin-top: 10px;
+    display: block;
 }

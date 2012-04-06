@@ -120,7 +120,7 @@ class Ds_Service_WootFeed {
     {
         $ch = curl_init('http://api.woot.com/1/sales/current.rss/'.$site.'.woot.com');
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $xml = curl_exec($ch);
 
@@ -145,6 +145,7 @@ class Ds_Service_WootFeed {
         if (
             file_exists(APPLICATION_PATH . '/../public/images/products/' . $itemId . $fileExtension)
             && file_exists(APPLICATION_PATH . '/../public/images/products/' . $itemId . '_detail' . $fileExtension)
+            && file_exists(APPLICATION_PATH . '/../public/images/products/' . $itemId . '_thumbnail' . $fileExtension)
         ) {
             //Skip downloading images if they already exist
             $data['file_extension'] = $fileExtension;
@@ -153,7 +154,7 @@ class Ds_Service_WootFeed {
 
         $ch = curl_init($data['standard']);
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $standard = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -163,7 +164,7 @@ class Ds_Service_WootFeed {
 
         $ch = curl_init($data['detail']);
         curl_setopt($ch, CURLOPT_FAILONERROR, true);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $detail = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -171,8 +172,19 @@ class Ds_Service_WootFeed {
         }
         curl_close($ch);
 
+        $ch = curl_init($data['thumbnail']);
+        curl_setopt($ch, CURLOPT_FAILONERROR, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $thumbnail = curl_exec($ch);
+        if (curl_errno($ch)) {
+            throw new Exception(curl_error($ch));
+        }
+        curl_close($ch);
+
         file_put_contents(APPLICATION_PATH . '/../public/images/products/' . $itemId . $fileExtension, $standard);
         file_put_contents(APPLICATION_PATH . '/../public/images/products/' . $itemId . '_detail' . $fileExtension, $detail);
+        file_put_contents(APPLICATION_PATH . '/../public/images/products/' . $itemId . '_thumbnail' . $fileExtension, $thumbnail);
 
         $data['file_extension'] = $fileExtension;
     }
@@ -203,6 +215,7 @@ class Ds_Service_WootFeed {
         $history['updated'] = date('c');
         $images['standard'] = (string)$wootNamespace->standardimage;
         $images['detail'] = (string)$wootNamespace->detailimage;
+        $images['thumbnail'] = (string)$wootNamespace->thumbnailimage;
 
         //Woot tends to use UTF-8 characters in their filenames.  cURL doesn't like this.
         $standardUrl = parse_url($images['standard']);
@@ -212,6 +225,10 @@ class Ds_Service_WootFeed {
         $detailUrl = parse_url($images['detail']);
         $detailUrl['path'] = substr($detailUrl['path'], 1);
         $images['detail'] = str_replace($detailUrl['path'], urlencode($detailUrl['path']), $images['detail']);
+        
+        $thumbnailUrl = parse_url($images['thumbnail']);
+        $thumbnailUrl['path'] = substr($thumbnailUrl['path'], 1);
+        $images['thumbnail'] = str_replace($thumbnailUrl['path'], urlencode($thumbnailUrl['path']), $images['thumbnail']);
 
         $products = array();
 

@@ -2,7 +2,7 @@ body {
     background-color: #FFE086;
 }
 
-#secondary-wrapper {
+.rounded-wrapper {
     background-color: #E19433;
     /* For IE 7*/
     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFE19433, endColorstr=#FFE19433);
