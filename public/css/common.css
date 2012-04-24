@@ -241,3 +241,31 @@ span.day-container {
     margin-top: 10px;
     display: block;
 }
+
+#woot-off {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 50px;
+    clear: both;
+}
+
+#progress-bar {
+    background-color: #CCCCCC;
+    width: 250px;
+    height: 20px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#progress-bar-inner {
+    background-color: #FFCD04;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+#progress-percent {
+    position: relative;
+    z-index: 2;
+}

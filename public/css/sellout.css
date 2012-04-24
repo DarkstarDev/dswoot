@@ -9,3 +9,7 @@ body {
 a, a:hover, a:visited, a:active {
     color: #4B437D;
 }
+
+.info-container .comments, #comment-container {
+    display: none;
+}

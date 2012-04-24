@@ -22,7 +22,7 @@ socket.on('product', function (data) {
             }
             $('#comment-container a').attr('href', productData.thread);
             $('#subtitle').text(productData.subtitle);
-            $('#teaser').text(productData.teaser);
+            $('#teaser').html(productData.teaser);
             $('#image img').attr('alt', productData.title.replace('"','\"'));
             $($('#image img')[0]).attr('src', '/images/products/' + productId + productData.file_extension);
             $($('#image img')[1]).attr('src', '/images/products/' + productId + '_detail' + productData.file_extension);
@@ -37,6 +37,19 @@ socket.on('product', function (data) {
             } else {
                 $('#buy-link').html('<a href="'+ productData.purchase_url +'">I want one!</a>');
             }
+        }
+        if (productData.wootoff) {
+            var percentLeft = (1-productData.history[0].percent_sold)*100;
+            if ($('#woot-off').length) {
+                $('#progress-bar-inner').css('width', percentLeft +'%');
+                $('#progress-percent').text(percentLeft + '%');
+            } else {
+                $('#product-info').after($('<div id="woot-off">Woot!-off<div id="progress-bar"><span id="progress-percent">'+ percentLeft +'%</span>'+
+                    '<div id="progress-bar-inner" style="width:'+ percentLeft +'%"></div></div></div>'));
+                $('#woot-off').after('&nbsp;');
+            }
+        } else {
+            $('#woot-off').remove();
         }
         $('#comment-container a').text(
             productData.history[0].comments + ' comment' +

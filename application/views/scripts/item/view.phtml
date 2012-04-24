@@ -77,6 +77,19 @@
             <a href="<?php echo $this->productData['thread']; ?>" target="_blank"><?php echo $current['comments']; ?> comment<?php echo (($current['comments'] == 0 || $current['comments'] > 1) ? 's' : '');?></a>
         </div>
     </div>
+    <?php
+    if ($this->productData['wootoff']):
+        $percentLeft = (1-$this->productData['history'][0]['percent_sold'])*100;
+    ?>
+    <div id="woot-off">
+        Woot!-off
+        <div id="progress-bar">
+            <span id="progress-percent"><?php echo $percentLeft ?>%</span>
+            <div id="progress-bar-inner" style="width: <?php echo $percentLeft; ?>%"></div>
+        </div>
+    </div>
+    &nbsp;
+    <?php endif;?>
     <div id="time-updated"></div>
     <div class="clearfix">
         <div class="triangle"></div>
