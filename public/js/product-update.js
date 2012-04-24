@@ -39,7 +39,7 @@ socket.on('product', function (data) {
             }
         }
         if (productData.wootoff) {
-            var percentLeft = (1-productData.history[0].percent_sold)*100;
+            var percentLeft = Math.round((1-productData.history[0].percent_sold)*100);
             if ($('#woot-off').length) {
                 $('#progress-bar-inner').css('width', percentLeft +'%');
                 $('#progress-percent').text(percentLeft + '%');
