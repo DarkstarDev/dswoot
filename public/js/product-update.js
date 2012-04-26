@@ -26,6 +26,8 @@ socket.on('product', function (data) {
             $('#image img').attr('alt', productData.title.replace('"','\"'));
             $($('#image img')[0]).attr('src', '/images/products/' + productId + productData.file_extension);
             $($('#image img')[1]).attr('src', '/images/products/' + productId + '_detail' + productData.file_extension);
+            $($('#image a')[0]).attr('href', '/images/products/' + productId + productData.file_extension);
+            $($('#image a')[1]).attr('href', '/images/products/' + productId + '_detail' + productData.file_extension);
             $('#image a').colorbox({rel: 'productImages'});
         }
         if (productData.history[0].sold_out) {
