@@ -78,7 +78,7 @@
         </div>
     </div>
     <?php
-    if ($this->productData['wootoff']):
+    if ($this->productData['wootoff'] && empty($this->currentProduct)):
         $percentLeft = (1-$this->productData['history'][0]['percent_sold'])*100;
     ?>
     <div id="woot-off">
