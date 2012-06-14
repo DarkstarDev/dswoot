@@ -299,5 +299,41 @@ extends Zend_Application_Bootstrap_Bootstrap
                 )
         );
         Zend_Controller_Front::getInstance()->getRouter()->addRoute('homeList', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/sport",
+                array(
+                    "controller" => "item",
+                    "action" => "view",
+                    "id" => "current",
+                    "site" => "sport"
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('sportIndex', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/sport/view/:id",
+                array(
+                    "controller" => "item",
+                    "action" => "view",
+                    "id" => "current",
+                    "site" => "sport"
+                ),
+                array(
+                    'id' => '[0-9a-f]+'
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('sportView', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/sport/list/:page",
+                array(
+                    "controller" => "item",
+                    "action" => "list",
+                    "site" => "sport",
+                    "page" => 1
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('sportList', $route);
     }
 }

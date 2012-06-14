@@ -1,0 +1,11 @@
+body {
+    background-color: #6ABB01;
+}
+
+#logo {
+    color: #6ABB01;
+}
+
+a, a:hover, a:visited, a:active {
+    color: #6ABB01;
+}

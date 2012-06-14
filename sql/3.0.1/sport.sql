@@ -1,0 +1,2 @@
+ALTER TABLE `item` CHANGE `site` `site` ENUM('woot','shirt','wine','kids','moofi','sellout','home','sport')  NOT NULL  DEFAULT 'woot';
+ALTER TABLE `status` CHANGE `site` `site` ENUM('woot','shirt','wine','kids','moofi','sellout','home','sport')  NOT NULL;

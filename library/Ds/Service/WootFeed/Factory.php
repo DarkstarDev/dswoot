@@ -1,6 +1,6 @@
 <?php
 /**
- * Class description
+ * WootFeed factory
  *
  * @author Orlando Marin
  */

@@ -23,6 +23,7 @@ class Ds_Service_WootFeed {
     const MOOFI = 'moofi';
     const SELLOUT = 'sellout';
     const HOME = 'home';
+    const SPORT = 'sport';
 
     protected $_allowedSites = array(
         self::WOOT => 'woot',
@@ -31,7 +32,8 @@ class Ds_Service_WootFeed {
         self::KIDS => 'kids',
         self::MOOFI => 'moofi',
         self::SELLOUT => 'sellout',
-        self::HOME => 'home'
+        self::HOME => 'home',
+        self::SPORT => 'sport'
     );
 
     public function __construct($dao, Zend_Db_Adapter_Abstract $db)

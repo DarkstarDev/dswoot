@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # http://code.google.com/p/sequel-pro/
 #
-# Host: nataku (MySQL 5.1.61-0ubuntu0.11.04.1)
+# Host: nataku (MySQL 5.5.22-0ubuntu1)
 # Database: dswoot
-# Generation Time: 2012-04-06 19:26:10 +0000
+# Generation Time: 2012-06-14 15:36:00 +0000
 # ************************************************************
 
 
@@ -56,7 +56,7 @@ CREATE TABLE `item` (
   `title` varchar(1000) NOT NULL DEFAULT '',
   `subtitle` varchar(1000) NOT NULL DEFAULT '',
   `teaser` varchar(1000) NOT NULL DEFAULT '',
-  `site` enum('woot','shirt','wine','kids','moofi','sellout','home') NOT NULL DEFAULT 'woot',
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport') NOT NULL DEFAULT 'woot',
   `file_extension` varchar(5) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`),
   KEY `id` (`id`,`site`)
@@ -86,7 +86,7 @@ CREATE TABLE `product` (
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE `status` (
-  `site` enum('woot','shirt','wine','kids','moofi','sellout','home') NOT NULL,
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport') NOT NULL,
   `locked` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`site`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -102,7 +102,8 @@ VALUES
 	('kids',0),
 	('moofi',0),
 	('sellout',0),
-	('home',0);
+	('home',0),
+	('sport',0);
 
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;
