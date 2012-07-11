@@ -1,0 +1,1 @@
+UPDATE item SET `condition` = 'Epic' WHERE `condition` = '';

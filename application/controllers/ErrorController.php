@@ -12,6 +12,7 @@ extends Zend_Controller_Action
     public function init()
     {
         $this->view->config = Zend_Registry::get('config')->dswoot->application;
+        $this->view->site = 'woot';
     }
 
     public function errorAction()

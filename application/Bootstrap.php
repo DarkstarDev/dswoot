@@ -336,4 +336,30 @@ extends Zend_Application_Bootstrap_Bootstrap
         );
         Zend_Controller_Front::getInstance()->getRouter()->addRoute('sportList', $route);
     }
+
+    protected function _initZFDebug()
+    {
+        $config = $this->getOption('ZFDebug');
+        if (APPLICATION_ENV != 'production' && $config && $config['enabled']) {
+            $this->bootstrap('db');
+            $dbAdapter = Zend_Registry::get('db');
+
+            $autoloader = Zend_Loader_Autoloader::getInstance();
+            $autoloader->registerNamespace('ZFDebug');
+
+            $options = array(
+                'plugins' => array(
+                    'Variables',
+                    'Database' => array('adapter' => $dbAdapter),
+                    'File' => array('basePath' => APPLICATION_PATH),
+                    'Log',
+                    'Exception')
+            );
+            $debug = new ZFDebug_Controller_Plugin_Debug($options);
+
+            $this->bootstrap('frontController');
+            $frontController = $this->getResource('frontController');
+            $frontController->registerPlugin($debug);
+        }
+    }
 }

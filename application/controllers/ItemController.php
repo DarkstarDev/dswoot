@@ -11,7 +11,7 @@ extends Zend_Controller_Action
 
     public function init()
     {
-        $this->view->site = $this->getRequest()->getParam('site');
+        $this->view->site = ($this->getRequest()->getParam('site')  ? $this->getRequest()->getParam('site') : 'woot');
     }
 
     public function indexAction()

@@ -107,6 +107,7 @@ body {
     margin-bottom: 5px;
     float: left;
     width: 250px;
+    min-height: 12px;
 }
 
 #condition dt, #product dt {

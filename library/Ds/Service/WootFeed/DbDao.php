@@ -29,28 +29,32 @@ class Ds_Service_WootFeed_DbDao {
                     i.teaser,
                     i.file_extension,
                     p.id AS product_id,
-                    p.name,
-                    p.quantity,
+                    p.name, p.quantity,
                     h.id AS history_id,
                     h.comments,
                     h.sold_out,
                     h.percent_sold,
                     h.updated
-                FROM
-                    item i
-                INNER JOIN product p
-                    ON p.item_id = i.id
+                FROM (SELECT
+                        i.id item_id,
+                        h.id history_id
+                        FROM item i
+                        INNER JOIN history h
+                            ON h.item_id = i.id
+                        WHERE i.site = ?
+                        ORDER BY h.updated DESC
+                        LIMIT 0,1) ids
+                INNER JOIN item i
+                    ON ids.item_id = i.id
                 INNER JOIN history h
-                    ON h.item_id = i.id
-                WHERE i.site = ?
-                ORDER BY h.updated DESC
-                LIMIT 0,1';
+                    ON ids.history_id = h.id
+                INNER JOIN product p
+                    ON p.item_id = i.id';
 
         $dto = null;
 
         if ($records = $this->_db->fetchAll($sql, $site)) {
-            $dtos = $this->_recordReduce($records);
-            $dto = $dtos[$records[0]['id']];
+            $dto = current($this->_recordReduce($records));
         }
 
         return $dto;

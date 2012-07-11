@@ -1,0 +1,3 @@
+ALTER TABLE `product` ADD UNIQUE INDEX (`id`);
+ALTER TABLE `item` DROP INDEX `id`;
+ALTER TABLE `history` ADD UNIQUE INDEX (`id`);

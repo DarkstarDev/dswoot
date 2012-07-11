@@ -199,7 +199,7 @@ class Ds_Service_WootFeed {
 
         $item['id'] = sha1($xml->channel->item->guid);
         $item['link'] = (string)$xml->channel->item->link;
-        $item['condition'] = (string)$wootNamespace->condition;
+        $item['condition'] = ((string)$wootNamespace->condition ? $wootNamespace->condition : 'Epic');
         $item['thread'] = (string)$wootNamespace->discussionurl;
         $item['purchase_url'] = (string)$wootNamespace->purchaseurl;
         $item['price'] = number_format((float)str_replace('$','',$wootNamespace->price),2);
