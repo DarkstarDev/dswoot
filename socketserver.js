@@ -74,6 +74,12 @@ var connections = {
         .on('connection', function (socket) {
             socket.join('moofi');
         }
+    ),
+
+    sport: io.of('/sport')
+        .on('connection', function (socket) {
+            socket.join('sport');
+        }
     )
 }
 
@@ -124,6 +130,12 @@ var options = {
         host: siteHost,
         port: sitePort,
         path: sitePath + '/moofi',
+        headers: XMLHttpRequestHeader
+    },
+    sport: {
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/sport',
         headers: XMLHttpRequestHeader
     }
 };
