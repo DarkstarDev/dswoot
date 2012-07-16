@@ -1,0 +1,11 @@
+body {
+    background-color: #0B5E60;
+}
+
+#logo {
+    color: #0B5E60;
+}
+
+a, a:hover, a:visited, a:active {
+    color: #0B5E60;
+}

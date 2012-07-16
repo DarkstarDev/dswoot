@@ -80,6 +80,12 @@ var connections = {
         .on('connection', function (socket) {
             socket.join('sport');
         }
+    ),
+
+    tech: io.of('/tech')
+        .on('connection', function (socket) {
+            socket.join('tech');
+        }
     )
 }
 
@@ -136,6 +142,12 @@ var options = {
         host: siteHost,
         port: sitePort,
         path: sitePath + '/sport',
+        headers: XMLHttpRequestHeader
+    },
+    tech: {
+        host: siteHost,
+        port: sitePort,
+        path: sitePath + '/tech',
         headers: XMLHttpRequestHeader
     }
 };

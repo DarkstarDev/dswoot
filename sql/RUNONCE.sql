@@ -7,7 +7,7 @@
 #
 # Host: nataku (MySQL 5.5.24-0ubuntu0.12.04.1)
 # Database: dswoot
-# Generation Time: 2012-07-11 19:33:57 +0000
+# Generation Time: 2012-07-16 15:53:57 +0000
 # ************************************************************
 
 
@@ -57,7 +57,7 @@ CREATE TABLE `item` (
   `title` varchar(1000) NOT NULL,
   `subtitle` varchar(1000) NOT NULL,
   `teaser` varchar(1000) NOT NULL,
-  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport') NOT NULL DEFAULT 'woot',
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport','tech') NOT NULL DEFAULT 'woot',
   `file_extension` varchar(5) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `site` (`site`)
@@ -88,7 +88,7 @@ CREATE TABLE `product` (
 DROP TABLE IF EXISTS `status`;
 
 CREATE TABLE `status` (
-  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport') NOT NULL,
+  `site` enum('woot','shirt','wine','kids','moofi','sellout','home','sport','tech') NOT NULL,
   `locked` tinyint(1) unsigned NOT NULL,
   PRIMARY KEY (`site`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -105,7 +105,8 @@ VALUES
 	('moofi',0),
 	('sellout',0),
 	('home',0),
-	('sport',0);
+	('sport',0),
+	('tech',0);
 
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 UNLOCK TABLES;

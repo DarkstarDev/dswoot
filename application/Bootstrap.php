@@ -335,6 +335,42 @@ extends Zend_Application_Bootstrap_Bootstrap
                 )
         );
         Zend_Controller_Front::getInstance()->getRouter()->addRoute('sportList', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/tech",
+                array(
+                    "controller" => "item",
+                    "action" => "view",
+                    "id" => "current",
+                    "site" => "tech"
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('techIndex', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/tech/view/:id",
+                array(
+                    "controller" => "item",
+                    "action" => "view",
+                    "id" => "current",
+                    "site" => "tech"
+                ),
+                array(
+                    'id' => '[0-9a-f]+'
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('techView', $route);
+
+        $route = new Zend_Controller_Router_Route(
+                "/tech/list/:page",
+                array(
+                    "controller" => "item",
+                    "action" => "list",
+                    "site" => "tech",
+                    "page" => 1
+                )
+        );
+        Zend_Controller_Front::getInstance()->getRouter()->addRoute('techList', $route);
     }
 
     protected function _initZFDebug()
