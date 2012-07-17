@@ -33,7 +33,7 @@ socket.on('product', function (data) {
         if (productData.history[0].sold_out) {
             $('#buy-link').text('Sold out!');
         } else {
-            if (parseFloat(productData.history[0].percent_sold) >= .9) {
+            if (parseInt(productData.history[0].percent_sold) >= 90) {
                 $('#buy-link').html('<a href="'+ productData.purchase_url +'">'
                     + "I want one!<br />(They're almost gone!)" +'</a>');
             } else {
@@ -41,7 +41,7 @@ socket.on('product', function (data) {
             }
         }
         if (productData.wootoff) {
-            var percentLeft = Math.round((1-productData.history[0].percent_sold)*100);
+            var percentLeft = (100-productData.history[0].percent_sold);
             if ($('#woot-off').length) {
                 $('#progress-bar-inner').css('width', percentLeft +'%');
                 $('#progress-percent').text(percentLeft + '%');

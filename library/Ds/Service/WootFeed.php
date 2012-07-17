@@ -215,7 +215,7 @@ class Ds_Service_WootFeed {
         $item['teaser'] = (string)$wootNamespace->teaser;
         $history['comments'] = (int)$wootNamespace->comments;
         $history['sold_out'] = (strtolower((string)$wootNamespace->soldout) == 'true') ? true : false;
-        $history['percent_sold'] = (float)$wootNamespace->soldoutpercentage;
+        $history['percent_sold'] = (int)$wootNamespace->soldoutpercentage;
         $history['updated'] = date('c');
         $images['standard'] = (string)$wootNamespace->standardimage;
         $images['detail'] = (string)$wootNamespace->detailimage;

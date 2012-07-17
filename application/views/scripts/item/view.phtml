@@ -63,9 +63,9 @@
         <?php $current = end($this->productData['history']); ?>
         <?php if(empty($this->currentProduct) || $this->productData['id'] == $this->currentProduct['id']): ?>
         <div id="buy-link">
-                <?php if(!$current['sold_out'] && $current['percent_sold'] < .9): ?>
+                <?php if(!$current['sold_out'] && $current['percent_sold'] < 90): ?>
                     <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!</a>
-                <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= .9): ?>
+                <?php elseif(!$current['sold_out'] && $current['percent_sold'] >= 90): ?>
                     <a href="<?php echo $this->productData['purchase_url']; ?>">I want one!<br />(They're almost gone!)</a>
                 <?php else: ?>
                     Sold out!
