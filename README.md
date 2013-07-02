@@ -28,4 +28,4 @@ The new version is written using Zend Framework 1.11.11.
 For installation instructions, see https://github.com/DarkstarDev/dswoot/wiki/Installation-Instructions
 
 ##UPGRADING##
-For upgrade instructions, see https://github.com/DarkstarDev/dswoot/wiki/Uprgading
+For upgrade instructions, see https://github.com/DarkstarDev/dswoot/wiki/Upgrading
